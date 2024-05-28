@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="main.css">
+    <style>
+        #formateurs-list-container {
+            margin-bottom: 20px;
+        }
+
+        .formateur-btn {
+            background-color: #EC5B15;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 5px;
+        }
+
+        .add-formateur-btn {
+            background-color: #ddd;
+            color: black;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<section id="monTableau">
+    <button id="add-event-btn" class="btn btn-primary mt-2">Ajouter un évènement</button>
+
+    <div class="row">
+        <div class="col">
+            <div class="card card-body">
+                <div>
+                    <input id="themes-input" class="form-control" type="text" required placeholder="Rechercher par thèmes">
+                </div>
+                <div>
+                    <input id="formateur-input" class="form-control" type="text" required placeholder="Rechercher par formateur">
+                </div>
+                <div>
+                    <input id="ville-input" class="form-control" type="text" required placeholder="Rechercher par ville">
+                </div>
+                <div>
+                    <input id="finan-input" class="form-control" type="text" required placeholder="Rechercher par financement">
+                </div>
+                
+                <input id="num-session-input" class="form-control" type="text" required placeholder="Rechercher par numéro de session">
+                <br>
+                <input id="date-debut-input" class="form-control datepicker" type="text" placeholder="Date Début">
+                <input id="date-fin-input" class="form-control datepicker" type="text" placeholder="Date Fin">
+                <button id="filter-dates-btn" class="btn btn-primary mt-2">Filtrer par dates</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="formateurs-list-container">
+        <ul id="formateurs-list">
+            <!-- Les formateurs seront ajoutés ici dynamiquement -->
+        </ul>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr class="bg-info">
+                <th class="bg-info" data-colname="theme" data-order="desc">Thème(s) &#9650</th>
+                <th data-colname="date_debut" data-order="desc">Début &#9650</th>
+                <th data-colname="date_fin" data-order="desc">Fin &#9650</th>
+                <th data-colname="ville" data-order="desc">Ville &#9650</th>
+                <th data-colname="finan" data-order="desc">Financement &#9650</th>
+                <th data-colname="forma" data-order="desc">Formateur &#9650</th>
+                <th data-colname="num_s" data-order="desc">Numéro de Session &#9650</th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+        </tbody>
+    </table>
+</section>
+
+<!-- Modal pour ajouter un nouvel évènement -->
+<div class="modal fade" id="addEventModal" tabindex="-1" role="dialog" aria-labelledby="addEventModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addEventModalLabel">Ajouter un nouveau thème</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="add-theme-form">
+                    <div class="form-group">
+                        <label for="new-theme">Thème</label>
+                        <input id="new-theme" class="form-control" type="text" required list="themes-list">
+                        <datalist id="themes-list">
+                            <!-- Les options seront ajoutées par JavaScript -->
+                        </datalist>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-finan">Financement</label>
+                        <input id="new-finan" class="form-control" type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-date-debut">Date Début</label>
+                        <input id="new-date-debut" class="form-control datepicker" type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-date-fin">Date Fin</label>
+                        <input id="new-date-fin" class="form-control datepicker" type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-ville">Ville</label>
+                        <input id="new-ville" class="form-control" type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-forma">Formateur</label>
+                        <input id="new-forma" class="form-control" type="text" list="formateurs-list">
+                        <datalist id="formateurs-list">
+                            <!-- Les options seront ajoutées par JavaScript -->
+                        </datalist>
+                    </div>
+                    <button type="submit" class="btn btn-success">Ajouter</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour ajouter un formateur -->
+<div class="modal fade" id="addFormateurModal" tabindex="-1" role="dialog" aria-labelledby="addFormateurModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addFormateurModalLabel">Ajouter un formateur</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul id="formateurs-list-modal">
+                    <!-- Les formateurs seront ajoutés ici dynamiquement -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="tablesort.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

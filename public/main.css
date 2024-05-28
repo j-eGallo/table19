@@ -1,0 +1,104 @@
+
+th{ 
+    cursor: pointer;
+    color:#fff;
+    background-color: black;
+    border-left: 1px solid white;
+    }
+
+.bg-info {
+    background-color: black !important;
+}
+
+#monTableau {
+    width: 1323px;
+    border: 2px solid black;
+    margin-top: 6pc;
+    margin-left: 2pc;
+}
+
+td {
+    border: 1px solid black;
+    color: black;
+}
+
+
+/* Ajout de styles pour réduire la taille des champs de recherche */
+.form-control {
+    /* width: calc(20% - 10px); */
+    display: inline-block;
+    margin-right: 10px;
+    width: 379px;
+}
+
+/* Ajout de styles pour aligner les champs de recherche sur une seule ligne */
+.card-body {
+    display: ruby-text;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+
+.btn-primary {
+    color: #fff;
+    background-color: #EC5B15;
+    border-color    : #EC5B15;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #c14a0f;
+    border-color    : #c14a0f;
+}
+
+.btn-success {
+    background-color: #EC5B15;
+    border-color    : #EC5B15;
+}
+
+.btn-success:hover {
+    background-color: #c14a0f;
+    border-color    : #c14a0f;
+}
+
+
+
+/* Style pour le curseur en forme de doigt */
+.event-row {
+    cursor: pointer;
+}
+
+/* Style pour la couleur de fond au survol */
+.event-row:hover td {
+    background-color: #585858;
+    color: white;
+    transition: 0.5s;
+}
+
+
+.theme-cell {
+    background-color: inherit; /* Par défaut, la couleur d'arrière-plan est héritée */
+}
+
+
+
+#formateurs-list-container {
+    margin-bottom: 20px;
+}
+
+.formateur-btn {
+    background-color: #EC5B15;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.add-formateur-btn {
+    background-color: #ddd;
+    color: black;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
